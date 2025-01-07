@@ -1,0 +1,117 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-parcelize'
+}
+
+android {
+    namespace 'com.mazaady.android_task'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.mazaady.android_task"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            shrinkResources false
+            minifyEnabled false
+            debuggable false
+            resValue "string", "authority", "com.mazaady.android_task.provider"
+            resValue "string", "app_name", "Mazaady task"
+            manifestPlaceholders = [appIcon: "@drawable/new_icon", appIconRound: "@drawable/new_icon"]
+            buildConfigField("String", "PRIVATE_KEY", "\"3%o8i}_;3D4bF]G5@22r2)Et1&mLJ4?@+16\"")
+            buildConfigField("String", "BASE_URL", "\"https://staging.mazaady.com/api/v1/\"")
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            shrinkResources false
+            minifyEnabled false
+            debuggable true
+            versionNameSuffix "-dev"
+            applicationIdSuffix ".dev"
+            resValue "string", "authority", "com.mazaady.android_task.dev.provider"
+            resValue "string", "app_name", "Mazaady task Dev"
+            manifestPlaceholders = [appIcon: "@drawable/ic_logo_dev", appIconRound: "@drawable/ic_logo_dev"]
+            buildConfigField("String", "PRIVATE_KEY", "\"3%o8i}_;3D4bF]G5@22r2)Et1&mLJ4?@+16\"")
+            buildConfigField("String", "BASE_URL", "\"https://staging.mazaady.com/api/v1/\"")
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig = true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.8.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.8.5'
+
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    // JUnit
+    testImplementation 'junit:junit:4.13.2'
+
+    // Mockito for mocking
+    testImplementation 'org.mockito:mockito-core:4.6.1'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'
+
+    // MockK for unit tests
+    testImplementation "io.mockk:mockk:1.13.9" // Replace with latest version
+
+    // Coroutines Test for testing coroutine-based code
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+
+    // AndroidX Test for Android-related testing utilities (optional)
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    testImplementation 'androidx.test.ext:junit:1.2.1'
+    testImplementation 'androidx.test:core:1.6.1'
+
+    // navigation Component
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.8.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.8.5'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7'
+
+    // retrofit Component
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
+    implementation "com.squareup.okhttp3:okhttp:4.9.3"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // dagger hilt
+    implementation "com.google.dagger:hilt-android:2.51.1"
+    kapt "com.google.dagger:hilt-compiler:2.51.1"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+}
