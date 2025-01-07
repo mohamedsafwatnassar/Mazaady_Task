@@ -16,13 +16,18 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="roundedCornersImageView" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/space_2x</item>
+    <style name="BottomSheetDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetBackground</item>
     </style>
 
+    <style name="bottomSheetBackground" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_rounded_top_12</item>
+    </style>
+
+    <!-- styles.xml -->
     <style name="CircleImageView" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/space_6x</item>
+        <item name="cornerSize">50%</item>
     </style>
+
 </resources>

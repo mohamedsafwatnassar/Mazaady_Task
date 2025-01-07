@@ -2,129 +2,85 @@ package com.mazaady.android_task.data.repository
 
 import com.mazaady.android_task.data.api.ApiService
 import com.mazaady.android_task.data.common.BaseRepo
+import com.mazaady.android_task.data.mapper.toCategoriesDomainModel
+import com.mazaady.android_task.data.mapper.toOptionChildDomain
+import com.mazaady.android_task.data.mapper.toPropertyDomainModels
+import com.mazaady.android_task.domain.model.CategoryDomainModel
+import com.mazaady.android_task.domain.model.OptionChildDomain
+import com.mazaady.android_task.domain.model.PropertyDomainModel
+import com.mazaady.android_task.domain.model.SubCategoryDomainModel
 import com.mazaady.android_task.domain.repository.CategoryRepository
+import com.mazaady.android_task.util.DataState
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CategoryRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : BaseRepo(), CategoryRepository {
 
-    /**
-     * Fetch popular movies from the API
-     * @param page Page number to fetch data for.
-     * @return Flow emitting the state of the API call.
-     *//*
-    override suspend fun fetchPopularMovies(page: Int): Flow<DataState<List<Movie>>> {
-        return performApiCall(apiCall = { apiService.fetchPopularMovies(page) }).map { dataState ->
-            // Handle the success case and map the movie data
+    var cachedCategories: List<CategoryDomainModel>? = null
+
+    // Fetch all categories
+    override suspend fun fetchCategories(): Flow<DataState<List<CategoryDomainModel>?>> {
+        return performApiCall(apiCall = { apiService.fetchAllCategories() }).map { dataState ->
             when (dataState) {
                 is DataState.Success -> {
-                    val mappedMovies = dataState.data?.results
-                        ?.filterNotNull() // Remove null items
-                        ?.mapNotNull { it.mapMovieToDomain() } // Map to domain model
-                        ?: emptyList() // Return empty list if no results
-                    DataState.Success(mappedMovies)
+                    // Cache the categories after fetching them
+                    cachedCategories = dataState.data?.data?.toCategoriesDomainModel()
+                    DataState.Success(cachedCategories)
                 }
 
-                else -> dataState as DataState<List<Movie>> // Return other states as-is
+                is DataState.Error -> dataState
+                is DataState.Processing -> dataState
+                is DataState.ServerError -> dataState
+                is DataState.Idle -> dataState
             }
         }
     }
 
-    */
-    /**
-     * Search for movies by query and page number.
-     * @param query The search query.
-     * @param page The page number to fetch.
-     * @return Flow emitting the state of the search API call.
-     *//*
-    override suspend fun searchMovies(query: String, page: Int): Flow<DataState<List<Movie>>> {
-        return performApiCall(apiCall = { apiService.searchMovies(query, page) }).map { dataState ->
-            // Handle the success case and map the movie data
+    // Fetch subcategories by category IDs
+    override suspend fun filterSubCategoriesByCategoryIds(categoryId: Int): Flow<DataState<List<SubCategoryDomainModel>?>> {
+        return flow {
+            val subCategories =
+                cachedCategories?.filter { it.id == categoryId }?.flatMap { it.children }
+                    ?: emptyList()
+            emit(DataState.Success(subCategories))
+        }
+    }
+
+    // Fetch Properties  by subcategory ID
+    override suspend fun fetchPropertiesBySubCategoryId(subCategoryId: Int): Flow<DataState<List<PropertyDomainModel>?>> {
+        return performApiCall(apiCall = { apiService.fetchPropertiesBySubCategoryId(subCategoryId) }).map { dataState ->
             when (dataState) {
                 is DataState.Success -> {
-                    val mappedMovies = dataState.data?.results
-                        ?.filterNotNull() // Remove null items
-                        ?.mapNotNull { it.mapMovieToDomain() } // Map to domain model
-                        ?: emptyList()
-                    DataState.Success(mappedMovies)
+                    DataState.Success(dataState.data?.data?.toPropertyDomainModels())
                 }
 
-                else -> dataState as DataState<List<Movie>> // Return other states as-is
+                is DataState.Error -> dataState
+                is DataState.Processing -> dataState
+                is DataState.ServerError -> dataState
+                is DataState.Idle -> dataState
             }
         }
     }
 
-    */
-    /**
-     * Fetch movie details by ID.
-     * @param movieId The ID of the movie to fetch details for.
-     * @return Flow emitting the state of the movie details API call.
-     *//*
-    override suspend fun fetchMovieDetailsById(movieId: Int): Flow<DataState<MovieDetails>> {
-        return performApiCall(apiCall = { apiService.fetchMovieDetailsById(movieId) }).map { dataState ->
-            // Handle the success case and map movie details
+    // Fetch Properties  by subcategory ID
+    override suspend fun fetchChildOptionsByOptionId(optionId: Int): Flow<DataState<List<OptionChildDomain>?>> {
+        return performApiCall(apiCall = { apiService.fetchOptionsChild(optionId) }).map { dataState ->
             when (dataState) {
                 is DataState.Success -> {
-                    val mappedDetails = dataState.data.mapDetailsToDomain()
-                    if (mappedDetails != null) {
-                        DataState.Success(mappedDetails) // Return mapped movie details
-                    } else {
-                        DataState.Error(CustomError(message = "Failed to map movie details."))
-                    }
+                    DataState.Success(dataState.data?.data?.map { it.toOptionChildDomain() })
                 }
 
-                else -> dataState as DataState<MovieDetails> // Return other states as-is
+                is DataState.Error -> dataState
+                is DataState.Processing -> dataState
+                is DataState.ServerError -> dataState
+                is DataState.Idle -> dataState
             }
         }
     }
-
-    */
-    /**
-     * Fetch similar movies by movie ID.
-     * @param movieId The ID of the movie to fetch similar movies for.
-     * @return Flow emitting the state of the similar movies API call.
-     *//*
-    override suspend fun fetchSimilarMovies(movieId: Int): Flow<DataState<List<Movie>>> {
-        return performApiCall(apiCall = { apiService.fetchSimilarMoviesById(movieId) }).map { dataState ->
-            // Handle the success case and map the similar movie data
-            when (dataState) {
-                is DataState.Success -> {
-                    val mappedMovies = dataState.data?.results
-                        ?.filterNotNull() // Remove null items
-                        ?.mapNotNull { it.mapMovieToDomain() } // Map to domain model
-                        ?: emptyList()
-                    DataState.Success(mappedMovies)
-                }
-
-                else -> dataState as DataState<List<Movie>> // Return other states as-is
-            }
-        }
-    }
-
-    */
-    /**
-     * Fetch movie credits by movie ID.
-     * @param movieId The ID of the movie to fetch credits for.
-     * @return Flow emitting the state of the movie credits API call.
-     *//*
-    override suspend fun fetchMovieCreditsById(movieId: Int): Flow<DataState<MovieCredits>> {
-        return performApiCall(apiCall = { apiService.fetchMovieCreditsById(movieId) }).map { dataState ->
-            // Handle the success case and map movie credits
-            when (dataState) {
-                is DataState.Success -> {
-                    val mappedCredits = dataState.data?.mapCreditsToDomain()
-                    if (mappedCredits != null) {
-                        DataState.Success(mappedCredits) // Return mapped movie credits
-                    } else {
-                        DataState.Error(CustomError("Failed to map movie credits"))
-                    }
-                }
-
-                else -> dataState as DataState<MovieCredits> // Return other states as-is
-            }
-        }
-    }*/
 }
 
 

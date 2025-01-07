@@ -3,6 +3,8 @@ package com.mazaady.android_task.di
 import android.content.Context
 import com.mazaady.android_task.BuildConfig
 import com.mazaady.android_task.data.api.ApiService
+import com.mazaady.android_task.data.repository.CategoryRepositoryImpl
+import com.mazaady.android_task.domain.repository.CategoryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +35,7 @@ object AppModule {
         val headerInterceptor = Interceptor { chain ->
             val original: Request = chain.request()
             val requestBuilder: Request.Builder = original.newBuilder()
-                .addHeader("Authorization", BuildConfig.PRIVATE_KEY)
+                .header("private-key", BuildConfig.PRIVATE_KEY)  // Add the private-key header here
 
             val request: Request = requestBuilder.build()
             chain.proceed(request)
@@ -61,25 +63,9 @@ object AppModule {
         return retrofit.create(ApiService::class.java)
     }
 
-
-    /*@Provides
-    @Singleton
-    fun provideMoviesRepository(apiService: ApiService): MovieRepository {
-        return MovieRepositoryImpl(apiService)
-    }*/
-
-
-    // Provide the application context as a dependency
     @Provides
     @Singleton
-    fun provideContext(@ApplicationContext appContext: Context): Context {
-        return appContext
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideIODispatcher(): CoroutineDispatcher {
-        return Dispatchers.IO
+    fun provideCategoryRepository(apiService: ApiService): CategoryRepository {
+        return CategoryRepositoryImpl(apiService)
     }
 }

@@ -1,14 +1,16 @@
 package com.mazaady.android_task.domain.repository
 
+import com.mazaady.android_task.domain.model.CategoryDomainModel
+import com.mazaady.android_task.domain.model.OptionChildDomain
+import com.mazaady.android_task.domain.model.PropertyDomainModel
+import com.mazaady.android_task.domain.model.SubCategoryDomainModel
+import com.mazaady.android_task.util.DataState
+import kotlinx.coroutines.flow.Flow
+
 interface CategoryRepository {
-    /*suspend fun fetchPopularMovies(page: Int): Flow<DataState<List<Movie>>>
-
-    suspend fun searchMovies(query: String, page: Int): Flow<DataState<List<Movie>>>
-
-    suspend fun fetchMovieDetailsById(movieId: Int): Flow<DataState<MovieDetails>>
-
-    suspend fun fetchSimilarMovies(movieId: Int): Flow<DataState<List<Movie>>>
-
-    suspend fun fetchMovieCreditsById(movieId: Int): Flow<DataState<MovieCredits>>*/
+    suspend fun fetchCategories(): Flow<DataState<List<CategoryDomainModel>?>>
+    suspend fun filterSubCategoriesByCategoryIds(categoryId: Int): Flow<DataState<List<SubCategoryDomainModel>?>>
+    suspend fun fetchPropertiesBySubCategoryId(subCategoryId: Int): Flow<DataState<List<PropertyDomainModel>?>>
+    suspend fun fetchChildOptionsByOptionId(optionId: Int): Flow<DataState<List<OptionChildDomain>?>>
 
 }

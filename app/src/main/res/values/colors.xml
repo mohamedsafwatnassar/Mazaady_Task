@@ -7,4 +7,9 @@
     <color name="colorText">#B3FFFFFF</color>
 
     <color name="red">#DF1642</color>
+
+    <color name="red_light">#EC5F5F</color>
+    <color name="grey_light">#F6F7FA</color>
+    <color name="grey">#9D9FA0</color>
+    <color name="yellow">#FCCC75</color>
 </resources>
