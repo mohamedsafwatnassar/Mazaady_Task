@@ -53,7 +53,7 @@ class SecondFragment : BaseFragment() {
             points = getString(R.string.s_points, "5000"),
             leftImageRes = R.drawable.ic_my_photo_circle, // TODO: set this image by glide to be circle
             onLeftImageClick = {
-                showToast("on image click")
+                showToast("on profile image click")
             },
             onNotificationClick = {
                 showToast("on notification click")

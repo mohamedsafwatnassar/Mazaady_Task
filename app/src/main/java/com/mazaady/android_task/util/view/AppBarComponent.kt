@@ -61,12 +61,10 @@ class AppBarComponent @JvmOverloads constructor(
         binding.imgNotification.setOnClickListener { onClick?.invoke() }
     }
 
-
     // Set background color
     fun setBackgroundColorRes(@ColorRes color: Int) {
         binding.root.setBackgroundColor(ContextCompat.getColor(context, color))
     }
-
 
     // Set up the app bar with title, points, left image, and click actions
     fun setupAppBar(
