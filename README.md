@@ -5,10 +5,10 @@ This project is an Android application built to demonstrate form handling, categ
 The Mazaady Task app allows users to select categories and subcategories from a predefined set and dynamically renders input fields based on the selected category.
 
 ### Features
-Dynamic Form Generation: Dynamically adds input fields based on category selection.
-Category and Subcategory Selection: Allows selection of categories with data retrieved from an API.
-Dependency Injection: Uses Dagger Hilt for clean dependency management.
-Unit Testing: Includes unit tests for repository classes.
+* Dynamic Form Generation: Dynamically adds input fields based on category selection.
+* Category and Subcategory Selection: Allows selection of categories with data retrieved from an API.
+* Dependency Injection: Uses Dagger Hilt for clean dependency management.
+* Unit Testing: Includes unit tests for repository classes.
 
 ### Benefits of Clean Architecture in This Project
 1- Separation of Concerns: Each layer is responsible for a specific part of the application, such as data handling, business logic, or user interface. This separation makes code easier to maintain and understand.
