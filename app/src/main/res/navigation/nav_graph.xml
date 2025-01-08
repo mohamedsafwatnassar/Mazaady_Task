@@ -3,26 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/navigation_second">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/navigation_first"
         android:name="com.mazaady.android_task.presentation.firstScreen.view.FirstFragment"
         android:label="First Fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_first"/>
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.mazaady.android_task.presentation.SecondFragment"
+        android:id="@+id/navigation_second"
+        android:name="com.mazaady.android_task.presentation.secondScreen.view.SecondFragment"
         android:label="Second Fragment"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_second"/>
 
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    <fragment
+        android:id="@+id/navigation_third"
+        android:name="com.mazaady.android_task.presentation.secondScreen.view.SecondFragment"
+        tools:layout="@layout/fragment_second" />
+
+    <fragment
+        android:id="@+id/navigation_fourth"
+        android:name="com.mazaady.android_task.presentation.secondScreen.view.SecondFragment"
+        tools:layout="@layout/fragment_second" />
 </navigation>

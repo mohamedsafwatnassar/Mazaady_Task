@@ -3,14 +3,11 @@ package com.mazaady.android_task.presentation
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationBarView
+import com.mazaady.android_task.R
 import com.mazaady.android_task.databinding.ActivityMainBinding
 import com.mazaady.android_task.util.LoadingViewManager
 import com.mazaady.android_task.util.extention.gone
@@ -28,6 +25,20 @@ class MainActivity : AppCompatActivity(), LoadingViewManager {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        initBottomNavigation()
+    }
+
+    private fun initBottomNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.navView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_SELECTED
+
+        binding.navView.setupWithNavController(navController)
+
+        // Optional: Prevent re-selection actions for the BottomNavigationView
+        binding.navView.setOnItemReselectedListener { }
     }
 
     override fun showLoading() {
