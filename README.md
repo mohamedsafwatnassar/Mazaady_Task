@@ -11,10 +11,10 @@ The Mazaady Task app allows users to select categories and subcategories from a 
 # Unit Testing: Includes unit tests for repository classes.
 
 ### Benefits of Clean Architecture in This Project
-# Separation of Concerns: Each layer is responsible for a specific part of the application, such as data handling, business logic, or user interface. This separation makes code easier to maintain and understand.
-# Testability: By isolating business logic in use cases and repository classes, the app is easier to test independently of the UI or data sources, leading to more robust unit testing.
-# Scalability: Clean Architecture provides a strong foundation for scaling the app. Adding new features or data sources does not affect the core business logic, allowing for modular expansion of the app.
-# Independence of Frameworks: Frameworks like Retrofit or Room can be swapped out with minimal impact on the app's core functionality, as dependencies are injected and isolated in specific layers.
+## Separation of Concerns: Each layer is responsible for a specific part of the application, such as data handling, business logic, or user interface. This separation makes code easier to maintain and understand.
+## Testability: By isolating business logic in use cases and repository classes, the app is easier to test independently of the UI or data sources, leading to more robust unit testing.
+## Scalability: Clean Architecture provides a strong foundation for scaling the app. Adding new features or data sources does not affect the core business logic, allowing for modular expansion of the app.
+## Independence of Frameworks: Frameworks like Retrofit or Room can be swapped out with minimal impact on the app's core functionality, as dependencies are injected and isolated in specific layers.
 Easier Refactoring: Changes in the UI or data layers require minimal refactoring in the business logic layer. This flexibility makes it simpler to adjust to evolving requirements.
 # Reusable Components: Components like use cases and repositories can be reused across different projects or parts of the application, improving development efficiency.
 
