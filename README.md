@@ -1,7 +1,7 @@
-Mazaady Task Android
-This project is an Android application built to demonstrate form handling, category and subcategory selection. The app uses clean architecture with MVVM architecture with Jetpack components, Retrofit for networking, and Dagger Hilt for dependency injection.
+### ### Mazaady Task Android
+This project is an Android application built to demonstrate form handling, category and subcategory selection. The app uses clean architecture with MVVM architecture, Retrofit for networking, and Dagger Hilt for dependency injection.
 
-Project Overview
+### ### Project Overview
 The Mazaady Task app allows users to select categories and subcategories from a predefined set and dynamically renders input fields based on the selected category.
 
 Features
